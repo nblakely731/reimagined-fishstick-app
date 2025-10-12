@@ -14,6 +14,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0   # helpful for release-please branches/merges
+
+      - name: Sanity check chart path
+        run: |
+          ls -la
+          ls -la charts
+          ls -la charts/demo-app
+          test -f charts/demo-app/Chart.yaml
 
       - name: Set up Helm
         uses: azure/setup-helm@v4
@@ -26,5 +35,5 @@ jobs:
           helm lint charts/demo-app --with-subcharts
           STATUS=$?
           echo "----- Rendered manifest (first 200 lines) -----"
-          helm template lint-preview charts/demo-app | sed -n '1,200p'
+          helm template lint-preview charts/demo-app | sed -n '1,200p' || true
           exit $STATUS
