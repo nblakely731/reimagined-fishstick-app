@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.2](https://github.com/nblakely731/reimagined-fishstick-app/compare/v0.2.1...v0.2.2) (2025-10-12)
+
+
+### Bug Fixes
+
+* **chart:** Workflow for helm linting fix iteration. ([0adddd8](https://github.com/nblakely731/reimagined-fishstick-app/commit/0adddd81f61bc23352ece4f56734a5068f00af14))
+* **chart:** Workflow for helm linting fix iteration. ([77e1fc4](https://github.com/nblakely731/reimagined-fishstick-app/commit/77e1fc41787450e1669be1a0e811abfbbec28367))
+
 ## [0.2.1](https://github.com/nblakely731/reimagined-fishstick-app/compare/v0.2.0...v0.2.1) (2025-10-12)
 
 
