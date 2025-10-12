@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.1](https://github.com/nblakely731/reimagined-fishstick-app/compare/v0.2.0...v0.2.1) (2025-10-12)
+
+
+### Bug Fixes
+
+* **app:** noisy test output ([012b9e0](https://github.com/nblakely731/reimagined-fishstick-app/commit/012b9e055fd7ecc434da87b31a5b0140fa3eaac3))
+* **app:** noisy test output ([2517f47](https://github.com/nblakely731/reimagined-fishstick-app/commit/2517f4726b90b286b9a781a1fd41bd2047edcd28))
+
 ## [0.2.0](https://github.com/nblakely731/reimagined-fishstick-app/compare/v0.1.0...v0.2.0) (2025-10-12)
 
 
