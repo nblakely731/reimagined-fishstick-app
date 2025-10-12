@@ -24,9 +24,9 @@
     "charts/demo-app": {
       "release-type": "simple",
       "component": "chart",
-      "changelog-path": "charts/demo-app/CHANGELOG.md",
       "include-v-in-tag": true,
       "include-component-in-tag": true,
+      "changelog-path": "charts/demo-app/CHANGELOG.md",
       "extra-files": [
         {
           "type": "yaml",
