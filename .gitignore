@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+
+# Node / misc
+node_modules/
+
+# Docker
+*.tar
+
+# IDE
+.vscode/
+.idea/
