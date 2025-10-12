@@ -2,12 +2,11 @@ name: Build Image → Push to ECR → Push Helm Chart (OCI)
 
 on:
   push:
-    branches: ["main"]
     tags: ["v*.*.*"]
 
 env:
   AWS_REGION: ${{ vars.AWS_REGION || 'us-east-1' }}
-  AWS_BOOTSTRAP_ROLE: ${{ vars.AWS_BOOTSTRAP_ROLE }}
+  AWS_BOOTSTRAP_ROLE: ${{ secrets.AWS_BOOTSTRAP_ROLE }}
   AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
   ECR_REPO: ${{ vars.ECR_REPO || 'liatrio-demo-app' }}
   CHART_DIR: charts/demo-app
