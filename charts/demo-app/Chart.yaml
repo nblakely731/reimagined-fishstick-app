@@ -1,6 +1,6 @@
 apiVersion: v2
 name: demo-app
-description: Minimal REST service returning a static message and current timestamp. 1.
+description: Minimal REST service returning a static message and current timestamp.
 keywords:
   - demo
   - fastapi
