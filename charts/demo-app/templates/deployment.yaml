@@ -20,7 +20,8 @@ spec:
     spec:
       containers:
         - name: app
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
+
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: APP_MESSAGE
