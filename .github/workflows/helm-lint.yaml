@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          fetch-depth: 0   # helpful for release-please branches/merges
+          fetch-depth: 0
 
       - name: Sanity check chart path
         run: |
@@ -23,6 +23,42 @@ jobs:
           ls -la charts
           ls -la charts/demo-app
           test -f charts/demo-app/Chart.yaml
+
+      # Enforce version bump only on PRs and only if chart files changed
+      - name: Install yq
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: mikefarah/yq@v4.44.3
+
+      - name: Require Chart.yaml version bump
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          set -euo pipefail
+          BASE_REF="origin/${{ github.base_ref }}"
+          CHANGED=$(git diff --name-only "$BASE_REF"...HEAD -- charts/demo-app || true)
+          echo "Changed files under charts/demo-app:"
+          echo "$CHANGED"
+
+          # If chart files didn't change, skip bump enforcement
+          if [ -z "$CHANGED" ]; then
+            echo "No chart changes; skipping version-bump check."
+            exit 0
+          fi
+
+          # If chart files changed, Chart.yaml must be in the diff
+          if ! echo "$CHANGED" | grep -q "charts/demo-app/Chart.yaml"; then
+            echo "::error ::Chart files changed but Chart.yaml was not modified. Please bump charts/demo-app/Chart.yaml 'version'."
+            exit 1
+          fi
+
+          # Ensure 'version' actually changed vs base
+          OLD_VER=$(git show "$BASE_REF:charts/demo-app/Chart.yaml" | yq '.version')
+          NEW_VER=$(yq '.version' charts/demo-app/Chart.yaml)
+          echo "Old version: $OLD_VER"
+          echo "New version: $NEW_VER"
+          if [ "$OLD_VER" = "$NEW_VER" ]; then
+            echo "::error ::charts/demo-app/Chart.yaml 'version' did not change from base. Please bump it."
+            exit 1
+          fi
 
       - name: Set up Helm
         uses: azure/setup-helm@v4
