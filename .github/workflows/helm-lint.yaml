@@ -15,12 +15,10 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          fetch-depth: 0   # helpful for release-please branches/merges
+          fetch-depth: 0
 
       - name: Sanity check chart path
         run: |
-          ls -la
-          ls -la charts
           ls -la charts/demo-app
           test -f charts/demo-app/Chart.yaml
 
@@ -28,6 +26,34 @@ jobs:
         uses: azure/setup-helm@v4
         with:
           version: v3.14.4
+
+      # Only enforce a Chart.yaml *version* bump on release-please PRs
+      - name: Install yq (only for release-please PRs)
+        if: ${{ github.event_name == 'pull_request' && (contains(github.head_ref, 'release-please--') || github.actor == 'release-please[bot]') }}
+        uses: mikefarah/yq@v4.44.3
+
+      - name: Require Chart.yaml version bump (release-please PRs only)
+        if: ${{ github.event_name == 'pull_request' && (contains(github.head_ref, 'release-please--') || github.actor == 'release-please[bot]') }}
+        run: |
+          set -euo pipefail
+          BASE_REF="origin/${{ github.base_ref }}"
+          # Only consider files inside charts/demo-app (ignore nested vendor/packaging if any)
+          CHANGED=$(git diff --name-only "$BASE_REF"...HEAD -- charts/demo-app || true)
+          echo "Changed files under charts/demo-app:"; echo "$CHANGED"
+
+          # If release-please touched the chart, Chart.yaml should be in the diff
+          if ! echo "$CHANGED" | grep -q "^charts/demo-app/Chart.yaml$"; then
+            echo "Release-please PR did not modify Chart.yaml; nothing to enforce."
+            exit 0
+          fi
+
+          OLD_VER=$(git show "$BASE_REF:charts/demo-app/Chart.yaml" | yq '.version')
+          NEW_VER=$(yq '.version' charts/demo-app/Chart.yaml)
+          echo "Old version: $OLD_VER  New version: $NEW_VER"
+          if [ "$OLD_VER" = "$NEW_VER" ]; then
+            echo "::error ::charts/demo-app/Chart.yaml 'version' did not change in the release-please PR. Please check release-please config/updater."
+            exit 1
+          fi
 
       - name: Helm lint (show output even on failure)
         run: |
