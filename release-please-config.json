@@ -22,18 +22,11 @@
       ]
     },
     "charts/demo-app": {
-      "release-type": "simple",
+      "release-type": "helm",
       "component": "chart",
+      "changelog-path": "CHANGELOG.md",
       "include-v-in-tag": true,
-      "include-component-in-tag": true,
-      "changelog-path": "charts/demo-app/CHANGELOG.md",
-      "extra-files": [
-        {
-          "type": "yaml",
-          "path": "charts/demo-app/Chart.yaml",
-          "jsonpath": "$.version"
-        }
-      ]
+      "include-component-in-tag": true
     }
   }
 }
