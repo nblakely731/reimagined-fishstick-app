@@ -1,0 +1,56 @@
+# name: Helm Chart OCI → ECR
+
+# on:
+#   push:
+#     tags:
+#       - 'chart-v*.*.*'
+
+# env:
+#   AWS_REGION: ${{ vars.AWS_REGION || 'us-east-1' }}
+#   ECR_HELM_REPO: ${{ vars.ECR_HELM_REPO || 'demo-app-chart' }}
+
+# permissions:
+#   contents: read
+#   id-token: write
+
+# jobs:
+#   push-chart:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       - name: Configure AWS credentials (OIDC role)
+#         uses: aws-actions/configure-aws-credentials@v4
+#         with:
+#           role-to-assume: ${{ vars.AWS_ROLE_TO_ASSUME }}
+#           aws-region: ${{ env.AWS_REGION }}
+
+#       - name: Get AWS account ID
+#         id: acct
+#         run: echo "account_id=$(aws sts get-caller-identity --query Account --output text)" >> $GITHUB_OUTPUT
+
+#       - name: Ensure ECR repo exists
+#         run: |
+#           set -e
+#           aws ecr describe-repositories --repository-names "$ECR_HELM_REPO" >/dev/null 2>&1 || \
+#             aws ecr create-repository --repository-name "$ECR_HELM_REPO" >/dev/null
+
+#       - name: Install Helm
+#         uses: azure/setup-helm@v4
+#         with:
+#           version: v3.14.4
+
+#       - name: Login to ECR (for Helm OCI)
+#         run: |
+#           aws ecr get-login-password --region "$AWS_REGION" | \
+#             helm registry login "${{ steps.acct.outputs.account_id }}.dkr.ecr.$AWS_REGION.amazonaws.com" --username AWS --password-stdin
+
+#       - name: Package chart
+#         run: |
+#           helm package charts/liatrio-demo-app --destination dist
+
+#       - name: Push chart to ECR OCI
+#         run: |
+#           FILE=$(ls dist/*.tgz)
+#           echo "Pushing $FILE"
+#           helm push "$FILE" oci://${{ steps.acct.outputs.account_id }}.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_HELM_REPO
