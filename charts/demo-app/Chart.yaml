@@ -12,3 +12,4 @@ maintainers:
 version: 0.1.0
 appVersion: "0.1.0"
 type: application
+icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/helm/icon/color/helm-icon-color.png

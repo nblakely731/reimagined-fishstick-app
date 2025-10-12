@@ -25,7 +25,9 @@ jobs:
           . .venv/bin/activate
           uv pip install -e .[dev]
 
-      - name: Run tests
+      - name: Run tests (verbose)
+        env:
+          PYTEST_ADDOPTS: -vv -ra --maxfail=1 --durations=10 --color=yes --log-cli-level=INFO -o log_cli=true
         run: |
           . .venv/bin/activate
           uv run pytest

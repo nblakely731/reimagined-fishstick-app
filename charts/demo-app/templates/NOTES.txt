@@ -9,6 +9,6 @@
 {{- else }}
   Service (ClusterIP) exposed on port {{ .Values.service.port }}:
 
-  kubectl port-forward svc/{{ include "liatrio-demo-app.fullname" . }} 8080:{{ .Values.service.port }}
+  kubectl port-forward svc/{{ include "demo-app.fullname" . }} 8080:{{ .Values.service.port }}
   echo "http://localhost:8080/"
 {{- end }}

@@ -14,10 +14,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+
       - name: Set up Helm
         uses: azure/setup-helm@v4
         with:
           version: v3.14.4
-      - name: Lint chart
+
+      - name: Helm lint (show output even on failure)
         run: |
-          helm lint charts/demo-app
+          set +e
+          helm lint charts/demo-app --with-subcharts
+          STATUS=$?
+          echo "----- Rendered manifest (first 200 lines) -----"
+          helm template lint-preview charts/demo-app | sed -n '1,200p'
+          exit $STATUS
