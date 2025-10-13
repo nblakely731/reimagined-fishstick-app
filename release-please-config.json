@@ -2,31 +2,17 @@
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
   "separate-pull-requests": true,
   "packages": {
-    ".": {
+    "app": {
       "release-type": "simple",
       "changelog-path": "CHANGELOG.md",
       "include-v-in-tag": true,
       "include-component-in-tag": false,
       "extra-files": [
-        {
-          "type": "toml",
-          "path": "pyproject.toml",
-          "jsonpath": "$.project.version"
-        },
-        {
-          "type": "generic",
-          "path": "app/version.py",
+        { "type": "toml", "path": "pyproject.toml", "jsonpath": "$.project.version" },
+        { "type": "generic", "path": "src/version.py",
           "search": "__version__\\s*=\\s*\"[^\"]*\"",
-          "replace": "__version__ = \"${version}\""
-        }
+          "replace": "__version__ = \"${version}\"" }
       ]
-    },
-    "charts/demo-app": {
-      "release-type": "helm",
-      "component": "chart",
-      "changelog-path": "CHANGELOG.md",
-      "include-v-in-tag": true,
-      "include-component-in-tag": true
     }
   }
 }

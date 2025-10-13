@@ -1,56 +1,44 @@
 name: Docker Publish (ECR)
-
 on:
   push:
+    branches: ["main"]
     tags: ["v*.*.*"]
-
 env:
-  # Repo Variables (recommended) or inline override
   AWS_REGION: ${{ vars.AWS_REGION || 'us-east-1' }}
   ECR_REPO: ${{ vars.ECR_REPO || 'liatrio-demo-app' }}
-  # Secrets
   AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
   AWS_BOOTSTRAP_ROLE: ${{ secrets.AWS_BOOTSTRAP_ROLE }}
-
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write   # OIDC
+      id-token: write
       contents: read
     env:
-      IMAGE_URI: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPO }}
+      IMAGE_URI: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/${{ vars.ECR_REPO }}
     steps:
       - uses: actions/checkout@v5
-
       - name: Configure AWS creds (OIDC)
         uses: aws-actions/configure-aws-credentials@v5
         with:
           role-to-assume: ${{ env.AWS_BOOTSTRAP_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: ecr-publish-${{ github.run_id }}
-
       - name: Ensure ECR image repo exists
         run: |
           aws ecr describe-repositories --repository-names "${ECR_REPO}" >/dev/null 2>&1 || \
             aws ecr create-repository --repository-name "${ECR_REPO}" >/dev/null
-
       - name: Login to Amazon ECR (Docker)
         uses: aws-actions/amazon-ecr-login@v2
-
       - name: Generate Docker metadata (tags, labels)
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.IMAGE_URI }}
           tags: |
-            # Semver from tag vX.Y.Z → X.Y.Z (primary)
             type=semver,pattern={{version}}
-            # Branch tag (for main & feature branches)
             type=ref,event=branch
-            # SHA fallback
             type=sha
-
       - name: Build and push image to ECR
         uses: docker/build-push-action@v6
         with:
