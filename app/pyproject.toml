@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "demo-app"
-version = "0.2.3"
+version = "0.1.0"
 description = "Demo REST API returning a static message and current timestamp"
-authors = [{ name = "Norman Blakely", email = "nblakely@localnorm.comm" }]
 readme = "README.md"
-requires-python = "==3.12.11"
+authors = [{ name = "Norman Blakely", email = "nblakely@localnorm.com" }]
+requires-python = ">=3.10"
 dependencies = [
   "fastapi>=0.115.0",
   "uvicorn[standard]>=0.30.0",
@@ -21,8 +21,11 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["../tests"]
 addopts = "-vv -ra --maxfail=1 --durations=10 --color=yes --log-cli-level=INFO -o log_cli=true"
 
 [tool.setuptools]
-packages = ["app"]
+py-modules = ["main", "version"]
+
+[tool.setuptools.package-dir]
+"" = "src"

@@ -3,7 +3,7 @@ import os
 import time
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
-from app.version import __app_name__, __version__
+from version import __app_name__, __version__
 
 MESSAGE_DEFAULT = os.getenv("APP_MESSAGE", "Automate all the things!")
 
