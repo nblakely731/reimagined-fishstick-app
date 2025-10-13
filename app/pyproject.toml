@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "demo-app"
-version = "0.0.0"
+version = "0.3.0"
 description = "Demo REST API returning a static message and current timestamp"
 readme = "README.md"
 authors = [{ name = "Norman Blakely", email = "nblakely@localnorm.com" }]
