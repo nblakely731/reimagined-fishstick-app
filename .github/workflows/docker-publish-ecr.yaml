@@ -15,7 +15,7 @@ jobs:
       id-token: write
       contents: read
     env:
-      IMAGE_URI: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO }}
+      IMAGE_URI: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/${{ vars.ECR_REPO }}
     steps:
       - uses: actions/checkout@v5
       - name: Configure AWS creds (OIDC)
