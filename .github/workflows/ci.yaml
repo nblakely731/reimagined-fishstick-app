@@ -27,4 +27,4 @@ jobs:
           PYTEST_ADDOPTS: -vv -ra --maxfail=1 --durations=10 --color=yes --log-cli-level=INFO -o log_cli=true
         run: |
           . .venv/bin/activate
-          uv run pytest
+          uv run pytest -c app/pyproject.toml

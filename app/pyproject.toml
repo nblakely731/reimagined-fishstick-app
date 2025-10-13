@@ -20,12 +20,14 @@ dev = [
   "httpx>=0.27.0",
 ]
 
-[tool.pytest.ini_options]
-testpaths = ["../tests"]
-addopts = "-vv -ra --maxfail=1 --durations=10 --color=yes --log-cli-level=INFO -o log_cli=true"
-
 [tool.setuptools]
-py-modules = ["main", "version"]
+package-dir = {"" = "src"}
 
-[tool.setuptools.package-dir]
-"" = "src"
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# (Optional) If you want pytest options here, keep them,
+# but remember CI must run with `-c app/pyproject.toml` to load them
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-vv -ra --maxfail=1 --durations=10 --color=yes --log-cli-level=INFO -o log_cli=true"

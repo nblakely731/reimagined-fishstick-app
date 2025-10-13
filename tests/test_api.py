@@ -1,6 +1,6 @@
 import time
 from fastapi.testclient import TestClient
-from main import app, MESSAGE_DEFAULT
+from demo_app.main import app, MESSAGE_DEFAULT
 
 client = TestClient(app)
 
