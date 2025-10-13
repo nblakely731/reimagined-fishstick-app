@@ -7,12 +7,7 @@ name = "demo-app"
 version = "0.1.0"
 description = "Demo REST API returning a static message and current timestamp"
 readme = "README.md"
-authors = [
-  {
-    name = "Norman Blakely",
-    email = "nblakely@localnorm.com"
-  }
-]
+authors = [{ name = "Norman Blakely", email = "nblakely@localnorm.com" }]
 requires-python = ">=3.10"
 dependencies = [
   "fastapi>=0.115.0",
@@ -30,7 +25,7 @@ testpaths = ["../tests"]
 addopts = "-vv -ra --maxfail=1 --durations=10 --color=yes --log-cli-level=INFO -o log_cli=true"
 
 [tool.setuptools]
-py-modules = ["main", "version"]   # install src/main.py & src/version.py as top-level modules
+py-modules = ["main", "version"]
 
 [tool.setuptools.package-dir]
 "" = "src"
