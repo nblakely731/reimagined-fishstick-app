@@ -3,11 +3,16 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "liatrio-demo-app"
+name = "demo-app"
 version = "0.1.0"
 description = "Demo REST API returning a static message and current timestamp"
 readme = "README.md"
-authors = [{ name = "Your Name", email = "you@example.com" }]
+authors = [
+  {
+    name = "Norman Blakely",
+    email = "nblakely@localnorm.com"
+  }
+]
 requires-python = ">=3.10"
 dependencies = [
   "fastapi>=0.115.0",

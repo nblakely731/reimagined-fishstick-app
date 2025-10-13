@@ -7,17 +7,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version-file: "app/pyproject.toml"
+
       - name: Install uv
         uses: astral-sh/setup-uv@v6
+
       - name: Create venv & install deps (app subdir)
         run: |
           uv venv --python $(python -c "import sys;print(f'{sys.version_info.major}.{sys.version_info.minor}')")
           . .venv/bin/activate
           uv pip install -e app/.[dev]
+
       - name: Run tests (verbose)
         env:
           PYTEST_ADDOPTS: -vv -ra --maxfail=1 --durations=10 --color=yes --log-cli-level=INFO -o log_cli=true
