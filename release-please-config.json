@@ -3,15 +3,23 @@
   "separate-pull-requests": true,
   "packages": {
     "app": {
-      "release-type": "simple",
+      "path": "app",
+      "release-type": "python",
       "changelog-path": "CHANGELOG.md",
       "include-v-in-tag": true,
       "include-component-in-tag": false,
       "extra-files": [
-        { "type": "toml", "path": "pyproject.toml", "jsonpath": "$.project.version" },
-        { "type": "generic", "path": "src/version.py",
+        {
+          "type": "toml",
+          "path": "app/pyproject.toml",
+          "jsonpath": "$.project.version"
+        },
+        {
+          "type": "generic",
+          "path": "app/src/demo_app/version.py",
           "search": "__version__\\s*=\\s*\"[^\"]*\"",
-          "replace": "__version__ = \"${version}\"" }
+          "replace": "__version__ = \"${version}\""
+        }
       ]
     }
   }

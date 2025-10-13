@@ -11,4 +11,4 @@ COPY app /svc/app
 RUN pip install --upgrade pip && pip install -e /svc/app
 
 EXPOSE 8080
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "demo_app.main:app", "--host", "0.0.0.0", "--port", "8080"]
