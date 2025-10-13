@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/nblakely731/reimagined-fishstick-app/compare/v1.0.1...v1.0.2) (2025-10-13)
+
+
+### Bug Fixes
+
+* App Message needed to be updated. ([defa4f0](https://github.com/nblakely731/reimagined-fishstick-app/commit/defa4f094364c7c0e73aab3ceb624c7161dd32d5))
+
 ## [1.0.1](https://github.com/nblakely731/reimagined-fishstick-app/compare/v1.0.0...v1.0.1) (2025-10-13)
 
 
