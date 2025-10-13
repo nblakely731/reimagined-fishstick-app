@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/nblakely731/reimagined-fishstick-app/compare/v1.0.0...v1.0.1) (2025-10-13)
+
+
+### Bug Fixes
+
+* release-type change and python src layout best practice.. ([#25](https://github.com/nblakely731/reimagined-fishstick-app/issues/25)) ([4c10fc8](https://github.com/nblakely731/reimagined-fishstick-app/commit/4c10fc8e2e7f33aaa9ccab14deecc3d39d2b4c0f))
+
 ## 1.0.0 (2025-10-13)
 
 
