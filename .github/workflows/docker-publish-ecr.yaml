@@ -36,8 +36,11 @@ jobs:
         with:
           images: ${{ env.IMAGE_URI }}
           tags: |
-            type=semver,pattern={{version}}
-            type=ref,event=branch
+            # For release tags: create semantic tags (1.2.3, etc.)
+            type=semver,pattern={{version}},enable=${{ startsWith(github.ref, 'refs/tags/v') }}
+            # For main branch: always push a "latest" tag
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            # Always include a SHA fallback for traceability
             type=sha
       - name: Build and push image to ECR
         uses: docker/build-push-action@v6
