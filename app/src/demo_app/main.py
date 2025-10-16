@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from .version import __app_name__, __version__
 
-MESSAGE_DEFAULT = os.getenv("APP_MESSAGE", "Automate all the things!")
+MESSAGE_DEFAULT = os.getenv("APP_MESSAGE", "Automate all the things again!")
 
 app = FastAPI(title=__app_name__, version=__version__)
 
