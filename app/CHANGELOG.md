@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/nblakely731/reimagined-fishstick-app/compare/v1.0.2...v1.1.0) (2025-10-16)
+
+
+### Features
+
+* welcome message change ([#29](https://github.com/nblakely731/reimagined-fishstick-app/issues/29)) ([51d40d2](https://github.com/nblakely731/reimagined-fishstick-app/commit/51d40d26e091ab727f54721b47abd665b06117cc))
+
 ## [1.0.2](https://github.com/nblakely731/reimagined-fishstick-app/compare/v1.0.1...v1.0.2) (2025-10-13)
 
 
